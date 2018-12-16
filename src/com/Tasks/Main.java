@@ -37,6 +37,7 @@ public class Main {
 
     private static void runSortAndGetStats(int powOfTwo, int arraySize, int[] array, boolean arrayOutput) {
         long startTime = System.currentTimeMillis();
+        System.out.println("Sorting by: " + powOfTwo + " bits...");
 
         new Sort().start(powOfTwo, arraySize, array, arrayOutput);
 
@@ -44,18 +45,17 @@ public class Main {
         long elapsedTime = stopTime - startTime;
         Runtime runtime = Runtime.getRuntime();
         runtime.gc();
-        printStats(powOfTwo, elapsedTime, runtime);
+        printStats(elapsedTime, runtime);
     }
 
-    private static void printStats(int powOfTwo, long elapsedTime, Runtime runtime) {
+    private static void printStats(long elapsedTime, Runtime runtime) {
         long totalMemory = runtime.totalMemory();
         long freeMemory = runtime.freeMemory();
         long memory = totalMemory - freeMemory;
-        System.out.println("Sorting by: " + powOfTwo + " bits.");
         System.out.println("Elapsed time: " + elapsedTime + " milliseconds (" + elapsedTime / 1000 + " seconds).");
         System.out.println("Total memory: " + totalMemory + " bytes (" + bytesToMegabytes(totalMemory) + " MB).");
         System.out.println("Free memory: " + freeMemory + " bytes (" + bytesToMegabytes(freeMemory) + " MB).");
-        System.out.println("Used memory is bytes: " + memory + " bytes (" + bytesToMegabytes(memory) + " MB).\n");
+        System.out.println("Used memory: " + memory + " bytes (" + bytesToMegabytes(memory) + " MB).\n");
     }
 
     private static long bytesToMegabytes(long bytes) {

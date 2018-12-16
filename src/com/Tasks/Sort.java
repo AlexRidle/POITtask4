@@ -20,7 +20,7 @@ public class Sort {
         for (int i = 0; i < counter; i++) {
             sortArray();
             if (arrayOutput)
-                System.out.println("Iteration: " + i + " Array: " + Arrays.toString(this.array));
+                System.out.println("Iteration " + i + ". Array: " + Arrays.toString(this.array));
         }
     }
 
