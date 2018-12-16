@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class Main {
 
-    private static int maxRandomValue = 100000000;
-    private static int arraySize = 20000000;
+    private static int maxRandomValue = 2147483647;
+    private static int arraySize = 10000000;
     private static int[] array = new int[arraySize];
 
     public static void main(String[] args) {
@@ -21,6 +21,9 @@ public class Main {
         runSortAndGetStats(512,arraySize,array);
         runSortAndGetStats(1024,arraySize,array);
         runSortAndGetStats(2048,arraySize,array);
+        runSortAndGetStats(4096,arraySize,array);
+        runSortAndGetStats(8192,arraySize,array);
+        runSortAndGetStats(16384,arraySize,array);
     }
 
     private static void initArray() {
@@ -39,16 +42,18 @@ public class Main {
         long elapsedTime = stopTime - startTime;
         Runtime runtime = Runtime.getRuntime();
         runtime.gc();
-        long memory = runtime.totalMemory() - runtime.freeMemory();
-        printStats(powOfTwo, elapsedTime, memory);
+        printStats(powOfTwo, elapsedTime, runtime);
     }
 
-    private static void printStats(int powOfTwo, long elapsedTime, long memory) {
-        System.out.println("Pow of two: " + powOfTwo);
-        System.out.println("Elapsed time: " + elapsedTime);
-        System.out.println("Used memory is bytes: " + memory);
-        System.out.println("Used memory is megabytes: "
-                + bytesToMegabytes(memory) + "\n");
+    private static void printStats(int powOfTwo, long elapsedTime, Runtime runtime) {
+        long totalMemory = runtime.totalMemory();
+        long freeMemory = runtime.freeMemory();
+        long memory = totalMemory - freeMemory;
+        System.out.println("Sorting by: " + powOfTwo + " bits.");
+        System.out.println("Elapsed time: " + elapsedTime + " milliseconds (" + elapsedTime / 1000 + " seconds).");
+        System.out.println("Total memory: " + totalMemory + " bytes (" + bytesToMegabytes(totalMemory) + " MB).");
+        System.out.println("Free memory: " + freeMemory + " bytes (" + bytesToMegabytes(freeMemory) + " MB).");
+        System.out.println("Used memory is bytes: " + memory + " bytes (" + bytesToMegabytes(memory) + " MB).\n");
     }
 
     private static long bytesToMegabytes(long bytes) {
