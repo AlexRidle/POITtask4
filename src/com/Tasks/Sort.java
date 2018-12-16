@@ -1,7 +1,7 @@
 package com.Tasks;
 
 import java.util.ArrayList;
-//import java.util.Arrays;
+import java.util.Arrays;
 
 public class Sort {
 
@@ -10,20 +10,23 @@ public class Sort {
     private int sortCounter;
     private int[] array;
     private ArrayList<ArrayList<Integer>> tempArray;
+    private boolean arrayOutput;
 
-    public void start(int powOfTwo, int arraySize, int[] array){
-        setupSettings(powOfTwo, arraySize);
+    public void start(int powOfTwo, int arraySize, int[] array, boolean arrayOutput) {
+        setupSettings(powOfTwo, arraySize, arrayOutput);
         initArrays(array);
 
         int counter = getCount();
         for (int i = 0; i < counter; i++) {
             sortArray();
-//            System.out.println("Iteration: " + i + " Array: " + Arrays.toString(this.array));
+            if (arrayOutput)
+                System.out.println("Iteration: " + i + " Array: " + Arrays.toString(this.array));
         }
     }
 
-    private void setupSettings(int powOfTwo, int arraySize){
+    private void setupSettings(int powOfTwo, int arraySize, boolean arrayOutput) {
         this.powOfTwo = powOfTwo;
+        this.arrayOutput = arrayOutput;
         array = new int[arraySize];
         tempArray = new ArrayList<>();
         binaryShift = getBinaryShift();
@@ -32,7 +35,8 @@ public class Sort {
 
     private void initArrays(int[] array) {
         System.arraycopy(array, 0, this.array, 0, array.length);
-//        System.out.println("Array: " + Arrays.toString(array));
+        if (arrayOutput)
+            System.out.println("Array: " + Arrays.toString(array));
 
         for (int i = 0; i < powOfTwo; i++) {
             tempArray.add(new ArrayList<>());
@@ -47,7 +51,7 @@ public class Sort {
     private int getCount() {
         String binValue = Integer.toBinaryString(getMaxOfArray(array));
         return binValue.length() % binaryShift != 0 ?
-                binValue.length() / binaryShift + 1:
+                binValue.length() / binaryShift + 1 :
                 binValue.length() / binaryShift;
     }
 

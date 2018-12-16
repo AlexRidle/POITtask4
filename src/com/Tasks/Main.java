@@ -4,26 +4,28 @@ import java.util.Random;
 
 public class Main {
 
-    private static int maxRandomValue = 2147483647;
-    private static int arraySize = 10000000;
+    private static int maxRandomValue = 8000; //2147483647 for 4th task
+    private static int arraySize = 50; // 10000000 for 4th task
     private static int[] array = new int[arraySize];
+    private static boolean arrayOutput = true;
 
     public static void main(String[] args) {
         initArray();
-        runSortAndGetStats(2,arraySize,array);
-        runSortAndGetStats(4,arraySize,array);
-        runSortAndGetStats(8,arraySize,array);
-        runSortAndGetStats(16,arraySize,array);
-        runSortAndGetStats(32,arraySize,array);
-        runSortAndGetStats(64,arraySize,array);
-        runSortAndGetStats(128,arraySize,array);
-        runSortAndGetStats(256,arraySize,array);
-        runSortAndGetStats(512,arraySize,array);
-        runSortAndGetStats(1024,arraySize,array);
-        runSortAndGetStats(2048,arraySize,array);
-        runSortAndGetStats(4096,arraySize,array);
-        runSortAndGetStats(8192,arraySize,array);
-        runSortAndGetStats(16384,arraySize,array);
+        if (arraySize > 100) arrayOutput = false;
+        runSortAndGetStats(2, arraySize, array, arrayOutput);
+        runSortAndGetStats(4, arraySize, array, arrayOutput);
+        runSortAndGetStats(8, arraySize, array, arrayOutput);
+        runSortAndGetStats(16, arraySize, array, arrayOutput);
+        runSortAndGetStats(32, arraySize, array, arrayOutput);
+        runSortAndGetStats(64, arraySize, array, arrayOutput);
+        runSortAndGetStats(128, arraySize, array, arrayOutput);
+        runSortAndGetStats(256, arraySize, array, arrayOutput);
+        runSortAndGetStats(512, arraySize, array, arrayOutput);
+        runSortAndGetStats(1024, arraySize, array, arrayOutput);
+        runSortAndGetStats(2048, arraySize, array, arrayOutput);
+        runSortAndGetStats(4096, arraySize, array, arrayOutput);
+        runSortAndGetStats(8192, arraySize, array, arrayOutput);
+        runSortAndGetStats(16384, arraySize, array, arrayOutput);
     }
 
     private static void initArray() {
@@ -33,10 +35,10 @@ public class Main {
         }
     }
 
-    private static void runSortAndGetStats(int powOfTwo, int arraySize, int[] array){
+    private static void runSortAndGetStats(int powOfTwo, int arraySize, int[] array, boolean arrayOutput) {
         long startTime = System.currentTimeMillis();
 
-        new Sort().start(powOfTwo,arraySize,array);
+        new Sort().start(powOfTwo, arraySize, array, arrayOutput);
 
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
@@ -57,7 +59,6 @@ public class Main {
     }
 
     private static long bytesToMegabytes(long bytes) {
-        //time and memory usage
         long MEGABYTE = 1024L * 1024L;
         return bytes / MEGABYTE;
     }
